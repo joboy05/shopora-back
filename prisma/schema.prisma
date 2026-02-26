@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Store {
+  id                        String    @id @default(uuid())
+  name                      String
+  email                     String
+  phone                     String?
+  billingAddress            String?
+  defaultCurrency           String    @default("EUR")
+  defaultRegion             String    @default("FR")
+  unitSystem                String    @default("metric")
+  weightUnit                String    @default("kg")
+  passwordProtectionEnabled Boolean   @default(true)
+  passwordHash              String?
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+  users                     User[]
+  markets                   Market[]
+  catalogs                  Catalog[]
+  pages                     Page[]
+  themes                    Theme[]
+  taxRules                  TaxRule[]
+  payouts                   Payout[]
+}
+
+model User {
+  id          String   @id @default(uuid())
+  storeId     String
+  store       Store    @relation(fields: [storeId], references: [id])
+  email       String   @unique
+  role        String   // Owner, Admin, Analyst, ContentManager, FinanceManager
+  status      String   @default("active")
+  twoFactorEnabled Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Market {
+  id           String   @id @default(uuid())
+  storeId      String
+  store        Store    @relation(fields: [storeId], references: [id])
+  name         String
+  status       String   @default("inactive") // active, inactive
+  countries    String[] // ISO country codes
+  currency     String
+  language     String?
+  domain       String?
+  pricingRules Json?    // { conversionType: 'auto' | 'manual', margin: number, rounding: string }
+  taxRules     TaxRule[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Catalog {
+  id                  String   @id @default(uuid())
+  storeId             String
+  store               Store    @relation(fields: [storeId], references: [id])
+  name                String
+  status              String   @default("inactive")
+  productSelectionRule Json?    // { type: 'all' | 'collection' | 'tag' | 'manual', values: string[] }
+  pricingRule         Json?    // { adjustmentType: 'percentage' | 'fixed', value: number }
+  customerTargetRule  Json?    // { type: 'all' | 'segment', segmentId?: string }
+  marketIds           String[] 
+  priority            Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Page {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  title     String
+  slug      String
+  content   String?  @db.Text
+  visibility String   @default("hidden") // visible, hidden
+  seoTitle  String?
+  seoDesc   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Theme {
+  id          String   @id @default(uuid())
+  storeId     String
+  store       Store    @relation(fields: [storeId], references: [id])
+  name        String
+  version     String
+  status      String   @default("inactive") // current, inactive
+  settings    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TaxRule {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  marketId  String
+  market    Market   @relation(fields: [marketId], references: [id])
+  name      String
+  rate      Float
+  priority  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payout {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  amount    Float
+  currency  String
+  status    String   @default("pending") // pending, paid, failed, cancelled
+  bankRef   String?
+  payoutDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

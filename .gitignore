@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.local
+.vscode/
+.env
+.DS_Store
+prisma/migrations/
+package-lock.json
+*.db
+*.db-journal
