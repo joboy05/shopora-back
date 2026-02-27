@@ -1,6 +1,7 @@
+console.log('>>> BACKEND STARTING...');
+import './src/lib/dotenv.js';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import marketRoutes from './src/routes/marketRoutes.js';
 import catalogRoutes from './src/routes/catalogRoutes.js';
@@ -8,8 +9,10 @@ import taxRuleRoutes from './src/routes/taxRuleRoutes.js';
 import payoutRoutes from './src/routes/payoutRoutes.js';
 import analyticsRoutes from './src/routes/analyticsRoutes.js';
 import themeRoutes from './src/routes/themeRoutes.js';
+import productRoutes from './src/routes/productRoutes.js';
+import orderRoutes from './src/routes/orderRoutes.js';
+import customerRoutes from './src/routes/customerRoutes.js';
 
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +27,9 @@ app.use('/api/tax-rules', taxRuleRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/themes', themeRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/customers', customerRoutes);
 
 // Basic health check
 app.get('/api/health', (req, res) => {
