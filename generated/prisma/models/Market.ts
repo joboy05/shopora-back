@@ -32,7 +32,6 @@ export type MarketMinAggregateOutputType = {
   currency: string | null
   language: string | null
   domain: string | null
-  taxRulesRef: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -45,7 +44,6 @@ export type MarketMaxAggregateOutputType = {
   currency: string | null
   language: string | null
   domain: string | null
-  taxRulesRef: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,7 +58,6 @@ export type MarketCountAggregateOutputType = {
   language: number
   domain: number
   pricingRules: number
-  taxRulesRef: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -75,7 +72,6 @@ export type MarketMinAggregateInputType = {
   currency?: true
   language?: true
   domain?: true
-  taxRulesRef?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,7 +84,6 @@ export type MarketMaxAggregateInputType = {
   currency?: true
   language?: true
   domain?: true
-  taxRulesRef?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,7 +98,6 @@ export type MarketCountAggregateInputType = {
   language?: true
   domain?: true
   pricingRules?: true
-  taxRulesRef?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -191,7 +185,6 @@ export type MarketGroupByOutputType = {
   language: string | null
   domain: string | null
   pricingRules: runtime.JsonValue | null
-  taxRulesRef: string | null
   createdAt: Date
   updatedAt: Date
   _count: MarketCountAggregateOutputType | null
@@ -227,10 +220,10 @@ export type MarketWhereInput = {
   language?: Prisma.StringNullableFilter<"Market"> | string | null
   domain?: Prisma.StringNullableFilter<"Market"> | string | null
   pricingRules?: Prisma.JsonNullableFilter<"Market">
-  taxRulesRef?: Prisma.StringNullableFilter<"Market"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Market"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Market"> | Date | string
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
+  taxRules?: Prisma.TaxRuleListRelationFilter
 }
 
 export type MarketOrderByWithRelationInput = {
@@ -243,10 +236,10 @@ export type MarketOrderByWithRelationInput = {
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   domain?: Prisma.SortOrderInput | Prisma.SortOrder
   pricingRules?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxRulesRef?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   store?: Prisma.StoreOrderByWithRelationInput
+  taxRules?: Prisma.TaxRuleOrderByRelationAggregateInput
 }
 
 export type MarketWhereUniqueInput = Prisma.AtLeast<{
@@ -262,10 +255,10 @@ export type MarketWhereUniqueInput = Prisma.AtLeast<{
   language?: Prisma.StringNullableFilter<"Market"> | string | null
   domain?: Prisma.StringNullableFilter<"Market"> | string | null
   pricingRules?: Prisma.JsonNullableFilter<"Market">
-  taxRulesRef?: Prisma.StringNullableFilter<"Market"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Market"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Market"> | Date | string
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
+  taxRules?: Prisma.TaxRuleListRelationFilter
 }, "id">
 
 export type MarketOrderByWithAggregationInput = {
@@ -278,7 +271,6 @@ export type MarketOrderByWithAggregationInput = {
   language?: Prisma.SortOrderInput | Prisma.SortOrder
   domain?: Prisma.SortOrderInput | Prisma.SortOrder
   pricingRules?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxRulesRef?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MarketCountOrderByAggregateInput
@@ -299,7 +291,6 @@ export type MarketScalarWhereWithAggregatesInput = {
   language?: Prisma.StringNullableWithAggregatesFilter<"Market"> | string | null
   domain?: Prisma.StringNullableWithAggregatesFilter<"Market"> | string | null
   pricingRules?: Prisma.JsonNullableWithAggregatesFilter<"Market">
-  taxRulesRef?: Prisma.StringNullableWithAggregatesFilter<"Market"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Market"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Market"> | Date | string
 }
@@ -313,10 +304,10 @@ export type MarketCreateInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   store: Prisma.StoreCreateNestedOneWithoutMarketsInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutMarketInput
 }
 
 export type MarketUncheckedCreateInput = {
@@ -329,9 +320,9 @@ export type MarketUncheckedCreateInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutMarketInput
 }
 
 export type MarketUpdateInput = {
@@ -343,10 +334,10 @@ export type MarketUpdateInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   store?: Prisma.StoreUpdateOneRequiredWithoutMarketsNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutMarketNestedInput
 }
 
 export type MarketUncheckedUpdateInput = {
@@ -359,9 +350,9 @@ export type MarketUncheckedUpdateInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutMarketNestedInput
 }
 
 export type MarketCreateManyInput = {
@@ -374,7 +365,6 @@ export type MarketCreateManyInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -388,7 +378,6 @@ export type MarketUpdateManyMutationInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -403,7 +392,6 @@ export type MarketUncheckedUpdateManyInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -436,7 +424,6 @@ export type MarketCountOrderByAggregateInput = {
   language?: Prisma.SortOrder
   domain?: Prisma.SortOrder
   pricingRules?: Prisma.SortOrder
-  taxRulesRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -449,7 +436,6 @@ export type MarketMaxOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
   domain?: Prisma.SortOrder
-  taxRulesRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -462,9 +448,13 @@ export type MarketMinOrderByAggregateInput = {
   currency?: Prisma.SortOrder
   language?: Prisma.SortOrder
   domain?: Prisma.SortOrder
-  taxRulesRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MarketScalarRelationFilter = {
+  is?: Prisma.MarketWhereInput
+  isNot?: Prisma.MarketWhereInput
 }
 
 export type MarketCreateNestedManyWithoutStoreInput = {
@@ -518,6 +508,20 @@ export type MarketUpdatecountriesInput = {
   push?: string | string[]
 }
 
+export type MarketCreateNestedOneWithoutTaxRulesInput = {
+  create?: Prisma.XOR<Prisma.MarketCreateWithoutTaxRulesInput, Prisma.MarketUncheckedCreateWithoutTaxRulesInput>
+  connectOrCreate?: Prisma.MarketCreateOrConnectWithoutTaxRulesInput
+  connect?: Prisma.MarketWhereUniqueInput
+}
+
+export type MarketUpdateOneRequiredWithoutTaxRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.MarketCreateWithoutTaxRulesInput, Prisma.MarketUncheckedCreateWithoutTaxRulesInput>
+  connectOrCreate?: Prisma.MarketCreateOrConnectWithoutTaxRulesInput
+  upsert?: Prisma.MarketUpsertWithoutTaxRulesInput
+  connect?: Prisma.MarketWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MarketUpdateToOneWithWhereWithoutTaxRulesInput, Prisma.MarketUpdateWithoutTaxRulesInput>, Prisma.MarketUncheckedUpdateWithoutTaxRulesInput>
+}
+
 export type MarketCreateWithoutStoreInput = {
   id?: string
   name: string
@@ -527,9 +531,9 @@ export type MarketCreateWithoutStoreInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutMarketInput
 }
 
 export type MarketUncheckedCreateWithoutStoreInput = {
@@ -541,9 +545,9 @@ export type MarketUncheckedCreateWithoutStoreInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutMarketInput
 }
 
 export type MarketCreateOrConnectWithoutStoreInput = {
@@ -585,9 +589,80 @@ export type MarketScalarWhereInput = {
   language?: Prisma.StringNullableFilter<"Market"> | string | null
   domain?: Prisma.StringNullableFilter<"Market"> | string | null
   pricingRules?: Prisma.JsonNullableFilter<"Market">
-  taxRulesRef?: Prisma.StringNullableFilter<"Market"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Market"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Market"> | Date | string
+}
+
+export type MarketCreateWithoutTaxRulesInput = {
+  id?: string
+  name: string
+  status?: string
+  countries?: Prisma.MarketCreatecountriesInput | string[]
+  currency: string
+  language?: string | null
+  domain?: string | null
+  pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  store: Prisma.StoreCreateNestedOneWithoutMarketsInput
+}
+
+export type MarketUncheckedCreateWithoutTaxRulesInput = {
+  id?: string
+  storeId: string
+  name: string
+  status?: string
+  countries?: Prisma.MarketCreatecountriesInput | string[]
+  currency: string
+  language?: string | null
+  domain?: string | null
+  pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MarketCreateOrConnectWithoutTaxRulesInput = {
+  where: Prisma.MarketWhereUniqueInput
+  create: Prisma.XOR<Prisma.MarketCreateWithoutTaxRulesInput, Prisma.MarketUncheckedCreateWithoutTaxRulesInput>
+}
+
+export type MarketUpsertWithoutTaxRulesInput = {
+  update: Prisma.XOR<Prisma.MarketUpdateWithoutTaxRulesInput, Prisma.MarketUncheckedUpdateWithoutTaxRulesInput>
+  create: Prisma.XOR<Prisma.MarketCreateWithoutTaxRulesInput, Prisma.MarketUncheckedCreateWithoutTaxRulesInput>
+  where?: Prisma.MarketWhereInput
+}
+
+export type MarketUpdateToOneWithWhereWithoutTaxRulesInput = {
+  where?: Prisma.MarketWhereInput
+  data: Prisma.XOR<Prisma.MarketUpdateWithoutTaxRulesInput, Prisma.MarketUncheckedUpdateWithoutTaxRulesInput>
+}
+
+export type MarketUpdateWithoutTaxRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  countries?: Prisma.MarketUpdatecountriesInput | string[]
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  store?: Prisma.StoreUpdateOneRequiredWithoutMarketsNestedInput
+}
+
+export type MarketUncheckedUpdateWithoutTaxRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  storeId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  countries?: Prisma.MarketUpdatecountriesInput | string[]
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MarketCreateManyStoreInput = {
@@ -599,7 +674,6 @@ export type MarketCreateManyStoreInput = {
   language?: string | null
   domain?: string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -613,9 +687,9 @@ export type MarketUpdateWithoutStoreInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutMarketNestedInput
 }
 
 export type MarketUncheckedUpdateWithoutStoreInput = {
@@ -627,9 +701,9 @@ export type MarketUncheckedUpdateWithoutStoreInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutMarketNestedInput
 }
 
 export type MarketUncheckedUpdateManyWithoutStoreInput = {
@@ -641,11 +715,39 @@ export type MarketUncheckedUpdateManyWithoutStoreInput = {
   language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pricingRules?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  taxRulesRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type MarketCountOutputType
+ */
+
+export type MarketCountOutputType = {
+  taxRules: number
+}
+
+export type MarketCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  taxRules?: boolean | MarketCountOutputTypeCountTaxRulesArgs
+}
+
+/**
+ * MarketCountOutputType without action
+ */
+export type MarketCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MarketCountOutputType
+   */
+  select?: Prisma.MarketCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MarketCountOutputType without action
+ */
+export type MarketCountOutputTypeCountTaxRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaxRuleWhereInput
+}
 
 
 export type MarketSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -658,10 +760,11 @@ export type MarketSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   language?: boolean
   domain?: boolean
   pricingRules?: boolean
-  taxRulesRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  taxRules?: boolean | Prisma.Market$taxRulesArgs<ExtArgs>
+  _count?: boolean | Prisma.MarketCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["market"]>
 
 export type MarketSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -674,7 +777,6 @@ export type MarketSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   language?: boolean
   domain?: boolean
   pricingRules?: boolean
-  taxRulesRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
@@ -690,7 +792,6 @@ export type MarketSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   language?: boolean
   domain?: boolean
   pricingRules?: boolean
-  taxRulesRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
@@ -706,14 +807,15 @@ export type MarketSelectScalar = {
   language?: boolean
   domain?: boolean
   pricingRules?: boolean
-  taxRulesRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MarketOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeId" | "name" | "status" | "countries" | "currency" | "language" | "domain" | "pricingRules" | "taxRulesRef" | "createdAt" | "updatedAt", ExtArgs["result"]["market"]>
+export type MarketOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeId" | "name" | "status" | "countries" | "currency" | "language" | "domain" | "pricingRules" | "createdAt" | "updatedAt", ExtArgs["result"]["market"]>
 export type MarketInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
+  taxRules?: boolean | Prisma.Market$taxRulesArgs<ExtArgs>
+  _count?: boolean | Prisma.MarketCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MarketIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
@@ -726,6 +828,7 @@ export type $MarketPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Market"
   objects: {
     store: Prisma.$StorePayload<ExtArgs>
+    taxRules: Prisma.$TaxRulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -737,7 +840,6 @@ export type $MarketPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     language: string | null
     domain: string | null
     pricingRules: runtime.JsonValue | null
-    taxRulesRef: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["market"]>
@@ -1135,6 +1237,7 @@ readonly fields: MarketFieldRefs;
 export interface Prisma__MarketClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   store<T extends Prisma.StoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StoreDefaultArgs<ExtArgs>>): Prisma.Prisma__StoreClient<runtime.Types.Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  taxRules<T extends Prisma.Market$taxRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Market$taxRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaxRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1173,7 +1276,6 @@ export interface MarketFieldRefs {
   readonly language: Prisma.FieldRef<"Market", 'String'>
   readonly domain: Prisma.FieldRef<"Market", 'String'>
   readonly pricingRules: Prisma.FieldRef<"Market", 'Json'>
-  readonly taxRulesRef: Prisma.FieldRef<"Market", 'String'>
   readonly createdAt: Prisma.FieldRef<"Market", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Market", 'DateTime'>
 }
@@ -1569,6 +1671,30 @@ export type MarketDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Markets to delete.
    */
   limit?: number
+}
+
+/**
+ * Market.taxRules
+ */
+export type Market$taxRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaxRule
+   */
+  select?: Prisma.TaxRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TaxRule
+   */
+  omit?: Prisma.TaxRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaxRuleInclude<ExtArgs> | null
+  where?: Prisma.TaxRuleWhereInput
+  orderBy?: Prisma.TaxRuleOrderByWithRelationInput | Prisma.TaxRuleOrderByWithRelationInput[]
+  cursor?: Prisma.TaxRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaxRuleScalarFieldEnum | Prisma.TaxRuleScalarFieldEnum[]
 }
 
 /**

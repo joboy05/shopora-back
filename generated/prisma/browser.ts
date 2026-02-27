@@ -47,3 +47,13 @@ export type Page = Prisma.PageModel
  * 
  */
 export type Theme = Prisma.ThemeModel
+/**
+ * Model TaxRule
+ * 
+ */
+export type TaxRule = Prisma.TaxRuleModel
+/**
+ * Model Payout
+ * 
+ */
+export type Payout = Prisma.PayoutModel

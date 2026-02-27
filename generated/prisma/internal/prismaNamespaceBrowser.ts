@@ -56,7 +56,9 @@ export const ModelName = {
   Market: 'Market',
   Catalog: 'Catalog',
   Page: 'Page',
-  Theme: 'Theme'
+  Theme: 'Theme',
+  TaxRule: 'TaxRule',
+  Payout: 'Payout'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -118,7 +120,6 @@ export const MarketScalarFieldEnum = {
   language: 'language',
   domain: 'domain',
   pricingRules: 'pricingRules',
-  taxRulesRef: 'taxRulesRef',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -171,6 +172,35 @@ export const ThemeScalarFieldEnum = {
 } as const
 
 export type ThemeScalarFieldEnum = (typeof ThemeScalarFieldEnum)[keyof typeof ThemeScalarFieldEnum]
+
+
+export const TaxRuleScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  marketId: 'marketId',
+  name: 'name',
+  rate: 'rate',
+  priority: 'priority',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaxRuleScalarFieldEnum = (typeof TaxRuleScalarFieldEnum)[keyof typeof TaxRuleScalarFieldEnum]
+
+
+export const PayoutScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  bankRef: 'bankRef',
+  payoutDate: 'payoutDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PayoutScalarFieldEnum = (typeof PayoutScalarFieldEnum)[keyof typeof PayoutScalarFieldEnum]
 
 
 export const SortOrder = {

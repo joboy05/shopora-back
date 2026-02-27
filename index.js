@@ -8,6 +8,7 @@ import taxRuleRoutes from './src/routes/taxRuleRoutes.js';
 import payoutRoutes from './src/routes/payoutRoutes.js';
 import analyticsRoutes from './src/routes/analyticsRoutes.js';
 import themeRoutes from './src/routes/themeRoutes.js';
+import productRoutes from './src/routes/productRoutes.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/tax-rules', taxRuleRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/themes', themeRoutes);
+app.use('/api/products', productRoutes);
 
 // Basic health check
 app.get('/api/health', (req, res) => {

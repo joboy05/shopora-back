@@ -251,6 +251,8 @@ export type StoreWhereInput = {
   catalogs?: Prisma.CatalogListRelationFilter
   pages?: Prisma.PageListRelationFilter
   themes?: Prisma.ThemeListRelationFilter
+  taxRules?: Prisma.TaxRuleListRelationFilter
+  payouts?: Prisma.PayoutListRelationFilter
 }
 
 export type StoreOrderByWithRelationInput = {
@@ -272,6 +274,8 @@ export type StoreOrderByWithRelationInput = {
   catalogs?: Prisma.CatalogOrderByRelationAggregateInput
   pages?: Prisma.PageOrderByRelationAggregateInput
   themes?: Prisma.ThemeOrderByRelationAggregateInput
+  taxRules?: Prisma.TaxRuleOrderByRelationAggregateInput
+  payouts?: Prisma.PayoutOrderByRelationAggregateInput
 }
 
 export type StoreWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +300,8 @@ export type StoreWhereUniqueInput = Prisma.AtLeast<{
   catalogs?: Prisma.CatalogListRelationFilter
   pages?: Prisma.PageListRelationFilter
   themes?: Prisma.ThemeListRelationFilter
+  taxRules?: Prisma.TaxRuleListRelationFilter
+  payouts?: Prisma.PayoutListRelationFilter
 }, "id">
 
 export type StoreOrderByWithAggregationInput = {
@@ -355,6 +361,8 @@ export type StoreCreateInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateInput = {
@@ -376,6 +384,8 @@ export type StoreUncheckedCreateInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUpdateInput = {
@@ -397,6 +407,8 @@ export type StoreUpdateInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateInput = {
@@ -418,6 +430,8 @@ export type StoreUncheckedUpdateInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateManyInput = {
@@ -607,6 +621,34 @@ export type StoreUpdateOneRequiredWithoutThemesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutThemesInput, Prisma.StoreUpdateWithoutThemesInput>, Prisma.StoreUncheckedUpdateWithoutThemesInput>
 }
 
+export type StoreCreateNestedOneWithoutTaxRulesInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutTaxRulesInput, Prisma.StoreUncheckedCreateWithoutTaxRulesInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutTaxRulesInput
+  connect?: Prisma.StoreWhereUniqueInput
+}
+
+export type StoreUpdateOneRequiredWithoutTaxRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutTaxRulesInput, Prisma.StoreUncheckedCreateWithoutTaxRulesInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutTaxRulesInput
+  upsert?: Prisma.StoreUpsertWithoutTaxRulesInput
+  connect?: Prisma.StoreWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutTaxRulesInput, Prisma.StoreUpdateWithoutTaxRulesInput>, Prisma.StoreUncheckedUpdateWithoutTaxRulesInput>
+}
+
+export type StoreCreateNestedOneWithoutPayoutsInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutPayoutsInput, Prisma.StoreUncheckedCreateWithoutPayoutsInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutPayoutsInput
+  connect?: Prisma.StoreWhereUniqueInput
+}
+
+export type StoreUpdateOneRequiredWithoutPayoutsNestedInput = {
+  create?: Prisma.XOR<Prisma.StoreCreateWithoutPayoutsInput, Prisma.StoreUncheckedCreateWithoutPayoutsInput>
+  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutPayoutsInput
+  upsert?: Prisma.StoreUpsertWithoutPayoutsInput
+  connect?: Prisma.StoreWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutPayoutsInput, Prisma.StoreUpdateWithoutPayoutsInput>, Prisma.StoreUncheckedUpdateWithoutPayoutsInput>
+}
+
 export type StoreCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -625,6 +667,8 @@ export type StoreCreateWithoutUsersInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutUsersInput = {
@@ -645,6 +689,8 @@ export type StoreUncheckedCreateWithoutUsersInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutUsersInput = {
@@ -681,6 +727,8 @@ export type StoreUpdateWithoutUsersInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutUsersInput = {
@@ -701,6 +749,8 @@ export type StoreUncheckedUpdateWithoutUsersInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutMarketsInput = {
@@ -721,6 +771,8 @@ export type StoreCreateWithoutMarketsInput = {
   catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutMarketsInput = {
@@ -741,6 +793,8 @@ export type StoreUncheckedCreateWithoutMarketsInput = {
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutMarketsInput = {
@@ -777,6 +831,8 @@ export type StoreUpdateWithoutMarketsInput = {
   catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutMarketsInput = {
@@ -797,6 +853,8 @@ export type StoreUncheckedUpdateWithoutMarketsInput = {
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutCatalogsInput = {
@@ -817,6 +875,8 @@ export type StoreCreateWithoutCatalogsInput = {
   markets?: Prisma.MarketCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutCatalogsInput = {
@@ -837,6 +897,8 @@ export type StoreUncheckedCreateWithoutCatalogsInput = {
   markets?: Prisma.MarketUncheckedCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutCatalogsInput = {
@@ -873,6 +935,8 @@ export type StoreUpdateWithoutCatalogsInput = {
   markets?: Prisma.MarketUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutCatalogsInput = {
@@ -893,6 +957,8 @@ export type StoreUncheckedUpdateWithoutCatalogsInput = {
   markets?: Prisma.MarketUncheckedUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutPagesInput = {
@@ -913,6 +979,8 @@ export type StoreCreateWithoutPagesInput = {
   markets?: Prisma.MarketCreateNestedManyWithoutStoreInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutPagesInput = {
@@ -933,6 +1001,8 @@ export type StoreUncheckedCreateWithoutPagesInput = {
   markets?: Prisma.MarketUncheckedCreateNestedManyWithoutStoreInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
   themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutPagesInput = {
@@ -969,6 +1039,8 @@ export type StoreUpdateWithoutPagesInput = {
   markets?: Prisma.MarketUpdateManyWithoutStoreNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutPagesInput = {
@@ -989,6 +1061,8 @@ export type StoreUncheckedUpdateWithoutPagesInput = {
   markets?: Prisma.MarketUncheckedUpdateManyWithoutStoreNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
   themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreCreateWithoutThemesInput = {
@@ -1009,6 +1083,8 @@ export type StoreCreateWithoutThemesInput = {
   markets?: Prisma.MarketCreateNestedManyWithoutStoreInput
   catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
 }
 
 export type StoreUncheckedCreateWithoutThemesInput = {
@@ -1029,6 +1105,8 @@ export type StoreUncheckedCreateWithoutThemesInput = {
   markets?: Prisma.MarketUncheckedCreateNestedManyWithoutStoreInput
   catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
   pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
 }
 
 export type StoreCreateOrConnectWithoutThemesInput = {
@@ -1065,6 +1143,8 @@ export type StoreUpdateWithoutThemesInput = {
   markets?: Prisma.MarketUpdateManyWithoutStoreNestedInput
   catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
 }
 
 export type StoreUncheckedUpdateWithoutThemesInput = {
@@ -1085,6 +1165,216 @@ export type StoreUncheckedUpdateWithoutThemesInput = {
   markets?: Prisma.MarketUncheckedUpdateManyWithoutStoreNestedInput
   catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
   pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
+}
+
+export type StoreCreateWithoutTaxRulesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  billingAddress?: string | null
+  defaultCurrency?: string
+  defaultRegion?: string
+  unitSystem?: string
+  weightUnit?: string
+  passwordProtectionEnabled?: boolean
+  passwordHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutStoreInput
+  markets?: Prisma.MarketCreateNestedManyWithoutStoreInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
+  pages?: Prisma.PageCreateNestedManyWithoutStoreInput
+  themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutStoreInput
+}
+
+export type StoreUncheckedCreateWithoutTaxRulesInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  billingAddress?: string | null
+  defaultCurrency?: string
+  defaultRegion?: string
+  unitSystem?: string
+  weightUnit?: string
+  passwordProtectionEnabled?: boolean
+  passwordHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutStoreInput
+  markets?: Prisma.MarketUncheckedCreateNestedManyWithoutStoreInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
+  pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
+  themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutStoreInput
+}
+
+export type StoreCreateOrConnectWithoutTaxRulesInput = {
+  where: Prisma.StoreWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoreCreateWithoutTaxRulesInput, Prisma.StoreUncheckedCreateWithoutTaxRulesInput>
+}
+
+export type StoreUpsertWithoutTaxRulesInput = {
+  update: Prisma.XOR<Prisma.StoreUpdateWithoutTaxRulesInput, Prisma.StoreUncheckedUpdateWithoutTaxRulesInput>
+  create: Prisma.XOR<Prisma.StoreCreateWithoutTaxRulesInput, Prisma.StoreUncheckedCreateWithoutTaxRulesInput>
+  where?: Prisma.StoreWhereInput
+}
+
+export type StoreUpdateToOneWithWhereWithoutTaxRulesInput = {
+  where?: Prisma.StoreWhereInput
+  data: Prisma.XOR<Prisma.StoreUpdateWithoutTaxRulesInput, Prisma.StoreUncheckedUpdateWithoutTaxRulesInput>
+}
+
+export type StoreUpdateWithoutTaxRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultRegion?: Prisma.StringFieldUpdateOperationsInput | string
+  unitSystem?: Prisma.StringFieldUpdateOperationsInput | string
+  weightUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordProtectionEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutStoreNestedInput
+  markets?: Prisma.MarketUpdateManyWithoutStoreNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
+  pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
+  themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutStoreNestedInput
+}
+
+export type StoreUncheckedUpdateWithoutTaxRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultRegion?: Prisma.StringFieldUpdateOperationsInput | string
+  unitSystem?: Prisma.StringFieldUpdateOperationsInput | string
+  weightUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordProtectionEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutStoreNestedInput
+  markets?: Prisma.MarketUncheckedUpdateManyWithoutStoreNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
+  pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
+  themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutStoreNestedInput
+}
+
+export type StoreCreateWithoutPayoutsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  billingAddress?: string | null
+  defaultCurrency?: string
+  defaultRegion?: string
+  unitSystem?: string
+  weightUnit?: string
+  passwordProtectionEnabled?: boolean
+  passwordHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutStoreInput
+  markets?: Prisma.MarketCreateNestedManyWithoutStoreInput
+  catalogs?: Prisma.CatalogCreateNestedManyWithoutStoreInput
+  pages?: Prisma.PageCreateNestedManyWithoutStoreInput
+  themes?: Prisma.ThemeCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleCreateNestedManyWithoutStoreInput
+}
+
+export type StoreUncheckedCreateWithoutPayoutsInput = {
+  id?: string
+  name: string
+  email: string
+  phone?: string | null
+  billingAddress?: string | null
+  defaultCurrency?: string
+  defaultRegion?: string
+  unitSystem?: string
+  weightUnit?: string
+  passwordProtectionEnabled?: boolean
+  passwordHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutStoreInput
+  markets?: Prisma.MarketUncheckedCreateNestedManyWithoutStoreInput
+  catalogs?: Prisma.CatalogUncheckedCreateNestedManyWithoutStoreInput
+  pages?: Prisma.PageUncheckedCreateNestedManyWithoutStoreInput
+  themes?: Prisma.ThemeUncheckedCreateNestedManyWithoutStoreInput
+  taxRules?: Prisma.TaxRuleUncheckedCreateNestedManyWithoutStoreInput
+}
+
+export type StoreCreateOrConnectWithoutPayoutsInput = {
+  where: Prisma.StoreWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoreCreateWithoutPayoutsInput, Prisma.StoreUncheckedCreateWithoutPayoutsInput>
+}
+
+export type StoreUpsertWithoutPayoutsInput = {
+  update: Prisma.XOR<Prisma.StoreUpdateWithoutPayoutsInput, Prisma.StoreUncheckedUpdateWithoutPayoutsInput>
+  create: Prisma.XOR<Prisma.StoreCreateWithoutPayoutsInput, Prisma.StoreUncheckedCreateWithoutPayoutsInput>
+  where?: Prisma.StoreWhereInput
+}
+
+export type StoreUpdateToOneWithWhereWithoutPayoutsInput = {
+  where?: Prisma.StoreWhereInput
+  data: Prisma.XOR<Prisma.StoreUpdateWithoutPayoutsInput, Prisma.StoreUncheckedUpdateWithoutPayoutsInput>
+}
+
+export type StoreUpdateWithoutPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultRegion?: Prisma.StringFieldUpdateOperationsInput | string
+  unitSystem?: Prisma.StringFieldUpdateOperationsInput | string
+  weightUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordProtectionEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutStoreNestedInput
+  markets?: Prisma.MarketUpdateManyWithoutStoreNestedInput
+  catalogs?: Prisma.CatalogUpdateManyWithoutStoreNestedInput
+  pages?: Prisma.PageUpdateManyWithoutStoreNestedInput
+  themes?: Prisma.ThemeUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUpdateManyWithoutStoreNestedInput
+}
+
+export type StoreUncheckedUpdateWithoutPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defaultCurrency?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultRegion?: Prisma.StringFieldUpdateOperationsInput | string
+  unitSystem?: Prisma.StringFieldUpdateOperationsInput | string
+  weightUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordProtectionEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutStoreNestedInput
+  markets?: Prisma.MarketUncheckedUpdateManyWithoutStoreNestedInput
+  catalogs?: Prisma.CatalogUncheckedUpdateManyWithoutStoreNestedInput
+  pages?: Prisma.PageUncheckedUpdateManyWithoutStoreNestedInput
+  themes?: Prisma.ThemeUncheckedUpdateManyWithoutStoreNestedInput
+  taxRules?: Prisma.TaxRuleUncheckedUpdateManyWithoutStoreNestedInput
 }
 
 
@@ -1098,6 +1388,8 @@ export type StoreCountOutputType = {
   catalogs: number
   pages: number
   themes: number
+  taxRules: number
+  payouts: number
 }
 
 export type StoreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1106,6 +1398,8 @@ export type StoreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   catalogs?: boolean | StoreCountOutputTypeCountCatalogsArgs
   pages?: boolean | StoreCountOutputTypeCountPagesArgs
   themes?: boolean | StoreCountOutputTypeCountThemesArgs
+  taxRules?: boolean | StoreCountOutputTypeCountTaxRulesArgs
+  payouts?: boolean | StoreCountOutputTypeCountPayoutsArgs
 }
 
 /**
@@ -1153,6 +1447,20 @@ export type StoreCountOutputTypeCountThemesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.ThemeWhereInput
 }
 
+/**
+ * StoreCountOutputType without action
+ */
+export type StoreCountOutputTypeCountTaxRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaxRuleWhereInput
+}
+
+/**
+ * StoreCountOutputType without action
+ */
+export type StoreCountOutputTypeCountPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PayoutWhereInput
+}
+
 
 export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1173,6 +1481,8 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   catalogs?: boolean | Prisma.Store$catalogsArgs<ExtArgs>
   pages?: boolean | Prisma.Store$pagesArgs<ExtArgs>
   themes?: boolean | Prisma.Store$themesArgs<ExtArgs>
+  taxRules?: boolean | Prisma.Store$taxRulesArgs<ExtArgs>
+  payouts?: boolean | Prisma.Store$payoutsArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["store"]>
 
@@ -1231,6 +1541,8 @@ export type StoreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   catalogs?: boolean | Prisma.Store$catalogsArgs<ExtArgs>
   pages?: boolean | Prisma.Store$pagesArgs<ExtArgs>
   themes?: boolean | Prisma.Store$themesArgs<ExtArgs>
+  taxRules?: boolean | Prisma.Store$taxRulesArgs<ExtArgs>
+  payouts?: boolean | Prisma.Store$payoutsArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StoreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1244,6 +1556,8 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     catalogs: Prisma.$CatalogPayload<ExtArgs>[]
     pages: Prisma.$PagePayload<ExtArgs>[]
     themes: Prisma.$ThemePayload<ExtArgs>[]
+    taxRules: Prisma.$TaxRulePayload<ExtArgs>[]
+    payouts: Prisma.$PayoutPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1658,6 +1972,8 @@ export interface Prisma__StoreClient<T, Null = never, ExtArgs extends runtime.Ty
   catalogs<T extends Prisma.Store$catalogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$catalogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CatalogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pages<T extends Prisma.Store$pagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   themes<T extends Prisma.Store$themesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$themesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ThemePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  taxRules<T extends Prisma.Store$taxRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$taxRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaxRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payouts<T extends Prisma.Store$payoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2205,6 +2521,54 @@ export type Store$themesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ThemeScalarFieldEnum | Prisma.ThemeScalarFieldEnum[]
+}
+
+/**
+ * Store.taxRules
+ */
+export type Store$taxRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaxRule
+   */
+  select?: Prisma.TaxRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TaxRule
+   */
+  omit?: Prisma.TaxRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaxRuleInclude<ExtArgs> | null
+  where?: Prisma.TaxRuleWhereInput
+  orderBy?: Prisma.TaxRuleOrderByWithRelationInput | Prisma.TaxRuleOrderByWithRelationInput[]
+  cursor?: Prisma.TaxRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaxRuleScalarFieldEnum | Prisma.TaxRuleScalarFieldEnum[]
+}
+
+/**
+ * Store.payouts
+ */
+export type Store$payoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payout
+   */
+  select?: Prisma.PayoutSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payout
+   */
+  omit?: Prisma.PayoutOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PayoutInclude<ExtArgs> | null
+  where?: Prisma.PayoutWhereInput
+  orderBy?: Prisma.PayoutOrderByWithRelationInput | Prisma.PayoutOrderByWithRelationInput[]
+  cursor?: Prisma.PayoutWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PayoutScalarFieldEnum | Prisma.PayoutScalarFieldEnum[]
 }
 
 /**
