@@ -7,7 +7,10 @@ export const listProducts = async (req, res) => {
         variants: true
       }
     });
-    res.json(products);
+    res.json({
+      data: products,
+      meta: { total: products.length }
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -25,7 +28,7 @@ export const getProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
-    res.json(product);
+    res.json({ data: product });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -50,7 +53,7 @@ export const createProduct = async (req, res) => {
         variants: true
       }
     });
-    res.status(201).json(product);
+    res.status(201).json({ data: product });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -70,7 +73,7 @@ export const updateProduct = async (req, res) => {
         tags
       }
     });
-    res.json(product);
+    res.json({ data: product });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

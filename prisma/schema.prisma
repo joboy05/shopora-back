@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider   = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 model Store {
@@ -35,6 +35,80 @@ model Store {
   taxRules                  TaxRule[]
   payouts                   Payout[]
   products                  Product[]
+  orders                    Order[]
+  customers                 Customer[]
+  metaobjectDefinitions     MetaobjectDefinition[]
+}
+
+model MetaobjectDefinition {
+  id               String   @id @default(uuid())
+  storeId          String
+  store            Store    @relation(fields: [storeId], references: [id])
+  name             String
+  type             String   @unique // e.g., 'designer', 'size_guide'
+  description      String?
+  fieldDefinitions Json     // Array of { name, type, key, required }
+  entries          MetaobjectEntry[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model MetaobjectEntry {
+  id           String   @id @default(uuid())
+  definitionId String
+  definition   MetaobjectDefinition @relation(fields: [definitionId], references: [id])
+  fields       Json     // Key-value pairs matching definition
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Metafield {
+  id          String   @id @default(uuid())
+  ownerId     String   // ID of Product, Order, etc.
+  ownerType   String   // 'Product', 'Order', etc.
+  namespace   String
+  key         String
+  value       String
+  type        String   // 'single_line_text_field', 'json', etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([ownerId, ownerType, namespace, key])
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  storeId         String
+  store           Store       @relation(fields: [storeId], references: [id])
+  customerId      String
+  customer        Customer    @relation(fields: [customerId], references: [id])
+  status          String      @default("pending") // pending, paid, fulfilled, cancelled
+  total           Float
+  items           OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+  quantity  Int
+  price     Float
 }
 
 model Product {
@@ -42,10 +116,10 @@ model Product {
   storeId     String
   store       Store    @relation(fields: [storeId], references: [id])
   name        String
-  description String?  @db.Text
+  description String?
   status      String   @default("draft") // draft, active, archived
   handle      String?  @unique
-  tags        String[]
+  tags        String? // Comma separated for SQLite demo
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   variants    ProductVariant[]
@@ -56,10 +130,11 @@ model ProductVariant {
   productId         String
   product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   sku               String?  @unique
-  price             Decimal  @db.Decimal(10, 2)
-  compareAtPrice    Decimal? @db.Decimal(10, 2)
+  price             Float
+  compareAtPrice    Float?
   inventoryQuantity Int      @default(0)
   options           Json?    // { size: 'XL', color: 'Red' }
+  orderItems        OrderItem[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
@@ -69,7 +144,10 @@ model User {
   storeId     String
   store       Store    @relation(fields: [storeId], references: [id])
   email       String   @unique
-  role        String   // Owner, Admin, Analyst, ContentManager, FinanceManager
+  password    String
+  username    String?
+  accountType String   @default("INDIVIDUAL") // INDIVIDUAL or COMPANY
+  role        String   @default("ADMIN") // ADMIN, CUSTOMER
   status      String   @default("active")
   twoFactorEnabled Boolean @default(false)
   createdAt   DateTime @default(now())
@@ -82,7 +160,7 @@ model Market {
   store        Store    @relation(fields: [storeId], references: [id])
   name         String
   status       String   @default("inactive") // active, inactive
-  countries    String[] // ISO country codes
+  countries    String? // Comma separated for SQLite demo (ISO country codes)
   currency     String
   language     String?
   domain       String?
@@ -100,8 +178,7 @@ model Catalog {
   status              String   @default("inactive")
   productSelectionRule Json?    // { type: 'all' | 'collection' | 'tag' | 'manual', values: string[] }
   pricingRule         Json?    // { adjustmentType: 'percentage' | 'fixed', value: number }
-  customerTargetRule  Json?    // { type: 'all' | 'segment', segmentId?: string }
-  marketIds           String[] 
+  marketIds           String? // Comma separated for SQLite demo 
   priority            Int      @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
@@ -113,7 +190,7 @@ model Page {
   store     Store    @relation(fields: [storeId], references: [id])
   title     String
   slug      String
-  content   String?  @db.Text
+  content   String?
   visibility String   @default("hidden") // visible, hidden
   seoTitle  String?
   seoDesc   String?

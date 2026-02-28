@@ -9,6 +9,10 @@ import payoutRoutes from './src/routes/payoutRoutes.js';
 import analyticsRoutes from './src/routes/analyticsRoutes.js';
 import themeRoutes from './src/routes/themeRoutes.js';
 import productRoutes from './src/routes/productRoutes.js';
+import orderRoutes from './src/routes/orderRoutes.js';
+import metaRoutes from './src/routes/metaRoutes.js';
+import authRoutes from './src/routes/authRoutes.js';
+import { checkAndSeedAdmin } from './src/services/adminService.js';
 
 dotenv.config();
 
@@ -26,6 +30,9 @@ app.use('/api/payouts', payoutRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/themes', themeRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/meta', metaRoutes);
+app.use('/api/auth', authRoutes);
 
 // Basic health check
 app.get('/api/health', (req, res) => {
@@ -43,6 +50,7 @@ app.get('/api/settings', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
+    await checkAndSeedAdmin();
 });

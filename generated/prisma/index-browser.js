@@ -114,9 +114,6 @@ Prisma.NullTypes = NullTypes
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -134,6 +131,65 @@ exports.Prisma.StoreScalarFieldEnum = {
   passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MetaobjectDefinitionScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  fieldDefinitions: 'fieldDefinitions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MetaobjectEntryScalarFieldEnum = {
+  id: 'id',
+  definitionId: 'definitionId',
+  fields: 'fields',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MetafieldScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  ownerType: 'ownerType',
+  namespace: 'namespace',
+  key: 'key',
+  value: 'value',
+  type: 'type',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  email: 'email',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  customerId: 'customerId',
+  status: 'status',
+  total: 'total',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  variantId: 'variantId',
+  quantity: 'quantity',
+  price: 'price'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -164,6 +220,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   storeId: 'storeId',
   email: 'email',
+  password: 'password',
   role: 'role',
   status: 'status',
   twoFactorEnabled: 'twoFactorEnabled',
@@ -192,7 +249,6 @@ exports.Prisma.CatalogScalarFieldEnum = {
   status: 'status',
   productSelectionRule: 'productSelectionRule',
   pricingRule: 'pricingRule',
-  customerTargetRule: 'customerTargetRule',
   marketIds: 'marketIds',
   priority: 'priority',
   createdAt: 'createdAt',
@@ -251,14 +307,13 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -272,9 +327,20 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 
 exports.Prisma.ModelName = {
   Store: 'Store',
+  MetaobjectDefinition: 'MetaobjectDefinition',
+  MetaobjectEntry: 'MetaobjectEntry',
+  Metafield: 'Metafield',
+  Customer: 'Customer',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
   Product: 'Product',
   ProductVariant: 'ProductVariant',
   User: 'User',
