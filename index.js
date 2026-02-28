@@ -1,6 +1,7 @@
+console.log('>>> BACKEND STARTING...');
+import './src/lib/dotenv.js';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
 import marketRoutes from './src/routes/marketRoutes.js';
 import catalogRoutes from './src/routes/catalogRoutes.js';
@@ -12,9 +13,9 @@ import productRoutes from './src/routes/productRoutes.js';
 import orderRoutes from './src/routes/orderRoutes.js';
 import metaRoutes from './src/routes/metaRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
+import customerRoutes from './src/routes/customerRoutes.js';
 import { checkAndSeedAdmin } from './src/services/adminService.js';
 
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,6 +34,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/meta', metaRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/customers', customerRoutes);
 
 // Basic health check
 app.get('/api/health', (req, res) => {

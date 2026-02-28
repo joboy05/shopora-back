@@ -1,11 +1,19 @@
 import express from 'express';
-import { listProducts, getProduct, createProduct, updateProduct } from '../controllers/productController.js';
+import { 
+    getAll, getOne, create, update, remove, // New names
+    listProducts, getProduct, createProduct, updateProduct // Compatibility names
+} from '../controllers/productController.js';
 
 const router = express.Router();
 
-router.get('/', listProducts);
-router.get('/:id', getProduct);
-router.post('/', createProduct);
+// New standard routes
+router.get('/', getAll);
+router.get('/:id', getOne);
+router.post('/', create);
+router.put('/:id', update);
+router.delete('/:id', remove);
+
+// Compatibility aliases
 router.patch('/:id', updateProduct);
 
 export default router;

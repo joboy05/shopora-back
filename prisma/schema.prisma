@@ -1,12 +1,8 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider   = "prisma-client-js"
-  engineType = "binary"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -27,6 +23,7 @@ model Store {
   passwordHash              String?
   createdAt                 DateTime  @default(now())
   updatedAt                 DateTime  @updatedAt
+  
   users                     User[]
   markets                   Market[]
   catalogs                  Catalog[]
@@ -76,82 +73,102 @@ model Metafield {
   @@unique([ownerId, ownerType, namespace, key])
 }
 
+model User {
+  id               String   @id @default(uuid())
+  storeId          String
+  store            Store    @relation(fields: [storeId], references: [id])
+  email            String   @unique
+  password         String
+  username         String?
+  accountType      String   @default("INDIVIDUAL") // INDIVIDUAL or COMPANY
+  role             String   @default("ADMIN") // ADMIN, CUSTOMER
+  status           String   @default("active")
+  twoFactorEnabled Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
 model Customer {
   id        String   @id @default(uuid())
   storeId   String
   store     Store    @relation(fields: [storeId], references: [id])
+  firstName String
+  lastName  String
   email     String   @unique
-  firstName String?
-  lastName  String?
+  phone     String?
+  tag       String?
   orders    Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Order {
-  id              String      @id @default(uuid())
-  storeId         String
-  store           Store       @relation(fields: [storeId], references: [id])
-  customerId      String
-  customer        Customer    @relation(fields: [customerId], references: [id])
-  status          String      @default("pending") // pending, paid, fulfilled, cancelled
-  total           Float
-  items           OrderItem[]
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-}
-
-model OrderItem {
-  id        String   @id @default(uuid())
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  variantId String
-  variant   ProductVariant @relation(fields: [variantId], references: [id])
-  quantity  Int
-  price     Float
-}
-
 model Product {
-  id          String   @id @default(uuid())
+  id          String           @id @default(uuid())
   storeId     String
-  store       Store    @relation(fields: [storeId], references: [id])
-  name        String
+  store       Store            @relation(fields: [storeId], references: [id])
+  title       String
   description String?
-  status      String   @default("draft") // draft, active, archived
-  handle      String?  @unique
-  tags        String? // Comma separated for SQLite demo
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  status      String           @default("draft") // active, draft, archived
+  vendor      String?
+  productType String?
+  tags        String?          // SQLite fallback: using String instead of String[] for simpler demo if needed, but Prisma supports String[] on SQLite
   variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 }
 
 model ProductVariant {
-  id                String   @id @default(uuid())
-  productId         String
-  product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  sku               String?  @unique
-  price             Float
-  compareAtPrice    Float?
-  inventoryQuantity Int      @default(0)
-  options           Json?    // { size: 'XL', color: 'Red' }
-  orderItems        OrderItem[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               String     @id @default(uuid())
+  productId        String
+  product          Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  title            String
+  price            Float
+  compareAtPrice   Float?
+  sku              String?    @unique
+  barcode          String?
+  inventory        Int        @default(0)
+  weight           Float?
+  option1          String?
+  option2          String?
+  option3          String?
+  orderItems       OrderItem[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 }
 
-model User {
-  id          String   @id @default(uuid())
-  storeId     String
-  store       Store    @relation(fields: [storeId], references: [id])
-  email       String   @unique
-  password    String
-  username    String?
-  accountType String   @default("INDIVIDUAL") // INDIVIDUAL or COMPANY
-  role        String   @default("ADMIN") // ADMIN, CUSTOMER
-  status      String   @default("active")
-  twoFactorEnabled Boolean @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Order {
+  id             String      @id @default(uuid())
+  storeId        String
+  store          Store       @relation(fields: [storeId], references: [id])
+  customerId     String?
+  customer       Customer?   @relation(fields: [customerId], references: [id])
+  orderNumber    Int         @default(0) // Handle increment manually for SQLite demo
+  status         String      @default("pending") // pending, confirmed, processing, shipped, delivered, cancelled, refunded
+  paymentStatus  String      @default("pending") // pending, paid, refunded, failed
+  subtotal       Float
+  shippingCost   Float       @default(0)
+  taxAmount      Float       @default(0)
+  total          Float
+  currency       String      @default("EUR")
+  shippingAddress Json?
+  billingAddress  Json?
+  items          OrderItem[]
+  notes          String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String         @id @default(uuid())
+  orderId   String
+  order     Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+  title     String
+  quantity  Int
+  price     Float
+  total     Float
+  createdAt DateTime       @default(now())
 }
 
 model Market {
@@ -159,12 +176,12 @@ model Market {
   storeId      String
   store        Store    @relation(fields: [storeId], references: [id])
   name         String
-  status       String   @default("inactive") // active, inactive
-  countries    String? // Comma separated for SQLite demo (ISO country codes)
+  status       String   @default("inactive")
+  countries    String?
   currency     String
   language     String?
   domain       String?
-  pricingRules Json?    // { conversionType: 'auto' | 'manual', margin: number, rounding: string }
+  pricingRules Json?
   taxRules     TaxRule[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -176,38 +193,38 @@ model Catalog {
   store               Store    @relation(fields: [storeId], references: [id])
   name                String
   status              String   @default("inactive")
-  productSelectionRule Json?    // { type: 'all' | 'collection' | 'tag' | 'manual', values: string[] }
-  pricingRule         Json?    // { adjustmentType: 'percentage' | 'fixed', value: number }
-  marketIds           String? // Comma separated for SQLite demo 
+  productSelectionRule Json?
+  pricingRule         Json?
+  marketIds           String?
   priority            Int      @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }
 
 model Page {
-  id        String   @id @default(uuid())
-  storeId   String
-  store     Store    @relation(fields: [storeId], references: [id])
-  title     String
-  slug      String
-  content   String?
-  visibility String   @default("hidden") // visible, hidden
-  seoTitle  String?
-  seoDesc   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  storeId    String
+  store      Store    @relation(fields: [storeId], references: [id])
+  title      String
+  slug       String
+  content    String?
+  visibility String   @default("hidden")
+  seoTitle   String?
+  seoDesc    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Theme {
-  id          String   @id @default(uuid())
-  storeId     String
-  store       Store    @relation(fields: [storeId], references: [id])
-  name        String
-  version     String
-  status      String   @default("inactive") // current, inactive
-  settings    Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(uuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  name      String
+  version   String
+  status    String   @default("inactive")
+  settings  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TaxRule {
@@ -224,14 +241,14 @@ model TaxRule {
 }
 
 model Payout {
-  id        String   @id @default(uuid())
-  storeId   String
-  store     Store    @relation(fields: [storeId], references: [id])
-  amount    Float
-  currency  String
-  status    String   @default("pending") // pending, paid, failed, cancelled
-  bankRef   String?
+  id         String   @id @default(uuid())
+  storeId    String
+  store      Store    @relation(fields: [storeId], references: [id])
+  amount     Float
+  currency   String
+  status     String   @default("pending")
+  bankRef    String?
   payoutDate DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
