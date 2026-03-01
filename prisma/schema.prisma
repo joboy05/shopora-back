@@ -14,6 +14,9 @@ model Store {
   name                      String
   email                     String
   phone                     String?
+  legalName                 String?
+  siret                     String?
+  vatNumber                 String?
   billingAddress            String?
   defaultCurrency           String    @default("EUR")
   defaultRegion             String    @default("FR")

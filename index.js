@@ -14,6 +14,7 @@ import orderRoutes from './src/routes/orderRoutes.js';
 import metaRoutes from './src/routes/metaRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
 import customerRoutes from './src/routes/customerRoutes.js';
+import storeRoutes from './src/routes/storeRoutes.js';
 import { checkAndSeedAdmin } from './src/services/adminService.js';
 
 
@@ -35,10 +36,11 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/meta', metaRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/customers', customerRoutes);
+app.use('/api/store', storeRoutes);
 
 // Basic health check
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date() });
+    res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
 // Settings boilerplate
