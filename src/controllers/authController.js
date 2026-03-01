@@ -31,7 +31,7 @@ export const register = async (req, res) => {
         password: hashedPassword,
         username: username,
         accountType: accountType || 'INDIVIDUAL',
-        role: 'ADMIN',
+        role: accountType === 'COMPANY' ? 'SELLER' : 'USER', // Only seeded admin gets ADMIN role
         storeId: store.id
       }
     });
