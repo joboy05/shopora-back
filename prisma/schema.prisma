@@ -42,6 +42,7 @@ model Store {
   taxRules                  TaxRule[]
   payouts                   Payout[]
   products                  Product[]
+  collections               Collection[]
   orders                    Order[]
   customers                 Customer[]
   metaobjectDefinitions     MetaobjectDefinition[]
@@ -121,10 +122,14 @@ model Product {
   status      String           @default("draft") // active, draft, archived
   vendor      String?
   productType String?
-  tags        String?          // SQLite fallback: using String instead of String[] for simpler demo if needed, but Prisma supports String[] on SQLite
+  tags        String?          // SQLite fallback: using String instead of String[]
+  media       Json?            // Array of image URLs
+  options     Json?            // Array of { name: 'Size', values: ['S', 'M', 'L'] }
   variants    ProductVariant[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+
+  collections Collection[]     @relation("ProductToCollection")
 }
 
 model ProductVariant {
@@ -261,4 +266,24 @@ model Payout {
   payoutDate DateTime?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Collection {
+  id          String   @id @default(uuid())
+  storeId     String
+  store       Store    @relation(fields: [storeId], references: [id])
+  title       String
+  description String?
+  slug        String
+  image       String?
+  type        String   @default("manual") // manual or automated
+  ruleSet     Json?    // Array of { field, relation, condition }
+  status      String   @default("active")
+  
+  products    Product[] @relation("ProductToCollection")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([storeId, slug])
 }
