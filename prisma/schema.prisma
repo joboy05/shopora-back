@@ -22,6 +22,13 @@ model Store {
   defaultRegion             String    @default("FR")
   unitSystem                String    @default("metric")
   weightUnit                String    @default("kg")
+  description               String?
+  website                   String?
+  address                   String?
+  city                      String?
+  state                     String?
+  postalCode                String?
+  country                   String?
   passwordProtectionEnabled Boolean   @default(true)
   passwordHash              String?
   createdAt                 DateTime  @default(now())
