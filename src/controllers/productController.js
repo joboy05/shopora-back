@@ -27,7 +27,8 @@ export const getAll = async (req, res) => {
         const { status, vendor, search, page = 1, limit = 20 } = req.query;
         const skip = (parseInt(page) - 1) * parseInt(limit);
 
-        const where = { storeId: STORE_ID };
+        const storeId = req.user?.storeId || STORE_ID;
+        const where = { storeId };
         if (status) where.status = status;
         if (vendor) where.vendor = vendor;
         if (search) where.title = { contains: search, mode: 'insensitive' };
@@ -57,8 +58,11 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-        const product = await prisma.product.findUnique({
-            where: { id: req.params.id },
+        const product = await prisma.product.findFirst({
+            where: { 
+                id: req.params.id,
+                ...(req.user?.storeId ? { storeId: req.user.storeId } : {})
+            },
             include: { variants: true },
         });
         if (!product) return res.status(404).json({ error: 'Product not found' });

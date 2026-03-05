@@ -31,8 +31,11 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-        const collection = await prisma.collection.findUnique({
-            where: { id: req.params.id },
+        const collection = await prisma.collection.findFirst({
+            where: { 
+                id: req.params.id,
+                ...(req.user?.storeId ? { storeId: req.user.storeId } : {})
+            },
             include: {
                 products: {
                     include: { variants: true }
@@ -91,7 +94,10 @@ export const update = async (req, res) => {
         }
 
         const collection = await prisma.collection.update({
-            where: { id: req.params.id },
+            where: { 
+                id: req.params.id,
+                storeId: req.user.storeId
+            },
             data,
             include: {
                 products: true
@@ -108,7 +114,10 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
     try {
         await prisma.collection.delete({
-            where: { id: req.params.id }
+            where: { 
+                id: req.params.id,
+                storeId: req.user.storeId
+            }
         });
         res.status(204).end();
     } catch (error) {
